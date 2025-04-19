@@ -15,7 +15,7 @@ export class RegisterUser {
   async execute(
     email: string,
     password: string | undefined, // Password is optional for drivers
-    role: 'user' | 'driver',
+    role: 'user' | 'partner',
     additionalData: { fullName?: string; phone?: string; [key: string]: any } // Flexible for driver data
   ): Promise<{ success: boolean; message?: string; error?: string; userId?: string }> {
     try {
@@ -40,7 +40,7 @@ export class RegisterUser {
       }
 
       // Generate userId with a prefix for drivers
-      const userId = role === 'driver' ? `DRV-${this.authService.generateUserId()}` : `USR-${this.authService.generateUserId()}`;
+      const userId = role === 'partner' ? `DRV-${this.authService.generateUserId()}` : `USR-${this.authService.generateUserId()}`;
 
       // Hash password only if provided (for users)
       const authData = {

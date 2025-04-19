@@ -192,7 +192,7 @@ export class TokenController {
         return;
       }
 
-      if (purpose !== 'document-upload' || role !== 'driver') {
+      if (purpose !== 'document-upload' || role !== 'partner') {
         ResponseHandler.validationError(res, 'Invalid purpose or role');
         return;
       }

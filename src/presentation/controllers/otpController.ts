@@ -255,7 +255,7 @@ export class OtpController {
       }
 
       // Verify partner role
-      if (partner.role !== 'driver') {
+      if (partner.role !== 'partner') {
         ResponseHandler.error(
           res, 
           "Not authorized as partner", 
@@ -265,10 +265,10 @@ export class OtpController {
       }
 
       // Generate token
-      const token = this.authService.generateToken(partner.userId, email, 'driver');
+      const token = this.authService.generateToken(partner.userId, email, 'partner');
       
       // Generate refresh token
-      const refreshToken = this.authService.generateRefreshToken(partner.userId, email, 'driver');
+      const refreshToken = this.authService.generateRefreshToken(partner.userId, email, 'partner');
       
       // Calculate refresh token expiry
       const refreshTokenExpiry = this.authService.getRefreshTokenExpiry();
@@ -286,7 +286,7 @@ export class OtpController {
         refreshToken,
         partnerId: partner.userId,
         email: partner.email,
-        role: 'driver'
+        role: 'partner'
       };
       
       ResponseHandler.success(res, response);

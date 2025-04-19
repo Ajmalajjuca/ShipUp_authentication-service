@@ -18,7 +18,7 @@ export class DriverAuthController {
     try {
       const { email, role, partnerId } = req.body as DriverRegistrationRequest;
 
-      if (!email || !role || role !== 'driver') {
+      if (!email || !role || role !== 'partner') {
         ResponseHandler.validationError(res, 'Email and role=driver are required');
         return;
       }
@@ -35,11 +35,11 @@ export class DriverAuthController {
       }
 
       // Store email and role directly in the database (no OTP)
-      const authData: { userId: string; email: string; password: string; role: 'user' | 'driver' | 'admin' } = {
+      const authData: { userId: string; email: string; password: string; role: 'user' | 'partner' | 'admin' } = {
         userId: partnerId || `DRV-${this.authService.generateUserId()}`,
         email,
         password: '', // or generate a random password if needed
-        role: 'driver',
+        role: 'partner',
       };
 
       await this.authRepository.create(authData);
@@ -51,7 +51,7 @@ export class DriverAuthController {
           message: ErrorMessage.DRIVER_REGISTRATION_SUCCESS,
           user: { 
             email, 
-            role: 'driver', 
+            role: 'partner', 
             partnerId: authData.userId 
           }
         }, 

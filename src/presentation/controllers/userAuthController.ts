@@ -36,7 +36,7 @@ export class UserAuthController {
       }
 
       // Ensure role is valid by casting to expected type
-      const validRole = role as 'user' | 'driver';
+      const validRole = role as 'user' | 'partner';
       
       const result = await this.registerUserUseCase.execute(email, password, validRole, { fullName, phone });
       
