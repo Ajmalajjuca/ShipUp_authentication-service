@@ -19,6 +19,7 @@ export class TokenController {
     try {
       const authHeader = req.headers.authorization;
       
+      
       if (!authHeader) {
         ResponseHandler.unauthorized(res, ErrorMessage.TOKEN_REQUIRED);
         return;
@@ -215,7 +216,9 @@ export class TokenController {
   async verifyPartnerToken(req: Request, res: Response): Promise<void> {
     const token = req.headers.authorization?.split(' ')[1];
     const { email } = req.body;
-
+    console.log('Token:', token);
+    console.log('Email:', email);
+    
     try {
       
 
@@ -227,9 +230,10 @@ export class TokenController {
       // Verify the token
       try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
+        console.log('Decoded:', decoded);
         
         // Check if the token belongs to the partner
-        if (decoded.email !== email || decoded.role !== 'driver') {
+        if (decoded.email !== email || decoded.role !== 'partner') {
           ResponseHandler.unauthorized(res, ErrorMessage.INVALID_TOKEN);
           return;
         }

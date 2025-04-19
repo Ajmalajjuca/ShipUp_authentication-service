@@ -168,16 +168,18 @@ export class OtpController {
     try {
       const { email } = req.body as OtpRequest;
       
+      
       if (!email) {
         ResponseHandler.validationError(res, ErrorMessage.EMAIL_REQUIRED);
         return;
       }
-
+      
       const authUser = await this.authRepository.findByEmail(email);
       if (!authUser) {
         ResponseHandler.notFound(res, 'Email not registered');
         return;
       }
+      console.log('Requesting login OTP for email:', authUser);
 
       try {
         // Check if it's a driver account
