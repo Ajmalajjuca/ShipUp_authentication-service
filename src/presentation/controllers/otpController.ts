@@ -56,6 +56,9 @@ export class OtpController {
   }
 
   async verifyOtp(req: Request, res: Response): Promise<void> {
+    console.log('Verifying OTP...');
+    console.log('Request body:', req.body);
+    
     try {
       const { email, otp, newPassword } = req.body as VerifyOtpRequest;
       

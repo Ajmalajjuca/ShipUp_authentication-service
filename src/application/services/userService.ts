@@ -36,6 +36,11 @@ export class UserService implements UserServiceInterface {
   }
 
   async getUserProfile(userId: string, token: string) {
+    console.log('Fetching user profile:', {
+      userId,
+      token,
+  });
+    
     try {
       const response = await axios.get(
         `${this.userServiceUrl}/users/${userId}`,
